@@ -8,80 +8,33 @@ import numpy as np
 
 
 # The Gelman-Rubin statistic
-def gelman_rubin_alpha(samples):
+def gelman_rubin(samples, parameter_index):
     """
-    @brief The Gelman-Rubin statistic for the alpha parameter
+    @brief The Gelman-Rubin statistic
     @param samples: The samples from the MCMC chain
-    @return The Gelman-Rubin statistic for the alpha parameter
+    @param parameter_index: The index of the parameter for which to calculate the Gelman-Rubin statistic
+    @return The Gelman-Rubin statistic for the chosen parameter
     """
-    samples = samples[:, :, 0]
+    samples = samples[:, :, parameter_index]
     n_chains, n_samples = samples.shape
-    # Compute column mean
-    chain_means = np.mean(samples, axis=1)
+
+    # Compute mean of rows, i.e. the mean of each chain - shape (n_sequences,)
+    chain_means = np.mean(samples, axis=1)  # Take mean along row i.e. of each chain
+
+    grand_mean = np.mean(chain_means)  # Mean of the means of each chain
+
+    # Compute between-chain variance
+    B = (n_samples / (n_chains - 1)) * np.sum((chain_means - grand_mean) ** 2, axis=0)
+
+    # Compute chain variances
     chain_variances = np.var(samples, axis=1, ddof=1)
 
-    # Between-chain variance
-    B = n_samples * np.var(chain_means, ddof=1)
-
-    # Mean of empirical variance between each chain
-    W = np.mean(chain_variances)
+    # Mean of within chain variances, i.e., average sample variance
+    W = np.mean(chain_variances, axis=0)
 
     # Estimated variance of the target distribution
     sigma_sq = (((n_samples - 1) * W) / n_samples) + (B / n_samples)
 
-    # Potential Scale Reduction Factor for each parameter
-    GR = np.sqrt(sigma_sq / W)
-    return GR
-
-
-# # The Gelman-Rubin statistic
-def gelman_rubin_beta(samples):
-    """
-    @brief The Gelman-Rubin statistic for the beta parameter
-    @param samples: The samples from the MCMC chain
-    @return The Gelman-Rubin statistic for the beta parameter
-    """
-    samples = samples[:, :, 1]
-    n_chains, n_samples = samples.shape
-    # Compute column mean
-    chain_means = np.mean(samples, axis=1)
-    chain_variances = np.var(samples, axis=1, ddof=1)
-
-    # Between-chain variance
-    B = n_samples * np.var(chain_means, ddof=1)
-
-    # Mean of empirical variance between each chain
-    W = np.mean(chain_variances)
-
-    # Estimated variance of the target distribution
-    sigma_sq = (((n_samples - 1) * W) / n_samples) + (B / n_samples)
-
-    # Potential Scale Reduction Factor for each parameter
-    GR = np.sqrt(sigma_sq / W)
-    return GR
-
-
-# The Gelman-Rubin statistic
-def gelman_rubin_I(samples):
-    """
-    @brief The Gelman-Rubin statistic for the intensity parameter
-    @param samples: The samples from the MCMC chain
-    @return The Gelman-Rubin statistic for the intensity parameter"""
-    samples = samples[:, :, 2]
-    n_chains, n_samples = samples.shape
-    # Compute column mean
-    chain_means = np.mean(samples, axis=1)
-    chain_variances = np.var(samples, axis=1, ddof=1)
-
-    # Between-chain variance
-    B = n_samples * np.var(chain_means, ddof=1)
-
-    # Mean of empirical variance between each chain
-    W = np.mean(chain_variances)
-
-    # Estimated variance of the target distribution
-    sigma_sq = (((n_samples - 1) * W) / n_samples) + (B / n_samples)
-
-    # Potential Scale Reduction Factor for each parameter
+    # GR for each parameter
     GR = np.sqrt(sigma_sq / W)
     return GR
