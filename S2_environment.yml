@@ -1,0 +1,11 @@
+name: S2_environment
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - numpy
+  - corner
+  - matplotlib
+  - seaborn
+  - emcee
+  - tqdm
