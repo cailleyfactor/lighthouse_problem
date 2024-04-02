@@ -26,8 +26,8 @@ ChatGPT version 4.0 was used for:
     -  The following prompt was used alongside the code for the corner and histogram plot: "How to set the labels on the edges of the corner plot"
 - Removing the tick marks on the histograms added to the corner plot for sampling
     - The following prompts were used alongside the code for the corner and histogram plot: "How to hide x-axis labels and ticks for all but the bottom row" and "How to hide y-axis labels and ticks for all but the first column"
-- My docker container does not flush in real time. I tried debugging this with ChatGPT and modifying my docker code, however, it was ineffective.
-    - I used the following prompt: "Why isn't the output of my dockerfile flushing in real time on my Mac?"
+- My docker container did not flush in real time. I debugged this with ChatGPT and modified my docker code, accordingly.
+    - I used the following prompts, alongside my dockerfile script: "Why isn't the output of my dockerfile flushing in real time on my Mac?" "What can I change such that my dockerfile flushes the output - I know it has something to do with conda".
 
 GitHub Copilot was used to help write documentation for docker and comments within the code.
 

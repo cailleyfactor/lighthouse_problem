@@ -12,6 +12,13 @@ import corner
 from gelmanrubin import gelman_rubin
 from sample import sample, sample_with_intensity
 from map_estimate import map_estimate
+import os
+
+
+# Check if there's a results directory, if not create one
+results_dir = "results"
+if not os.path.exists(results_dir):
+    os.makedirs(results_dir)
 
 # Load the data from the .txt file
 data = np.loadtxt("lighthouse_flash_data.txt")
@@ -48,7 +55,9 @@ for i in range(chain.shape[1]):
 plt.xlabel("Iteration")
 plt.ylabel("Parameter Value")
 plt.legend()
-plt.show()
+
+file_path = os.path.join(results_dir, "trace_plot1.png")
+plt.savefig(file_path)
 
 # Print out the acceptance rate
 print("The acceptance fraction is", np.mean(sampler.acceptance_fraction))
@@ -153,7 +162,9 @@ for ax in axes[:-1, :].flatten():
 for ax in axes[:, 1:].flatten():
     ax.yaxis.set_ticklabels([])
     ax.yaxis.set_ticks_position("none")
-plt.show()
+file_path = os.path.join(results_dir, "corner_plot1.png")
+plt.savefig(file_path)
+plt.close()
 
 # Get a second chain for use in calculating the Gelman-Rubin statistic
 sampler2 = sample(x, alpha_max, alpha_min, beta_max, beta_min, nwalkers, ndim, nsteps)
@@ -210,7 +221,8 @@ for i in range(chain3.shape[1]):
 plt.xlabel("Iteration")
 plt.ylabel("Parameter Value")
 plt.legend()
-plt.show()
+file_path = os.path.join(results_dir, "trace_plot2.png")
+plt.savefig(file_path)
 
 # Acceptance rate
 print("The acceptance fraction is", np.mean(sampler3.acceptance_fraction))
@@ -326,7 +338,9 @@ for j in range(1, 3):
     for ax in axes[:, j]:
         ax.yaxis.set_ticklabels([])
         ax.yaxis.set_ticks_position("none")
-plt.show()
+
+file_path = os.path.join(results_dir, "corner_plot2.png")
+plt.savefig(file_path)
 
 # Repeat running the MCMC chain to obtain the GR statistic
 sampler4 = sample_with_intensity(
