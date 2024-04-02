@@ -8,7 +8,7 @@ First clone the repository from git. Cloning the repository includes cloning the
 To run the code, a dockerfile is povided in the root directory with the environment needed to run the code, provided in the environment.yml file.
 To run the code from the terminal navigate to the root directory and use, e.g.,
 $docker build -t [image name of choice] .
-$docker run -t [image name of choice]
+$docker run -v .:/cf593_doxy -t [image name of choice]
 
 With the appropriate environment, the code can also be run from the terminal
 by navigating into the root directory of the cloned git repository and running the code with the following command
