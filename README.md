@@ -1,7 +1,6 @@
 ## S2 Coursework
 ## Description
-The aim of this project was to solve the "Lighthouse Problem", including using Markov chain Monte Carlo methods to sample from the relevant posterior distributions to provide parameter estimates for the lighthouse position based on the data in the "lighthouse_flash_data.txt" file. A PDF of a report describing the project in detail is provided in the report folder in the root directory. Excluding the appendix, the word count for the report is 1933 words.
-
+The aim of this project was to solve the "Lighthouse Problem", including using Markov chain Monte Carlo methods to sample from the relevant posterior distributions to provide parameter estimates for the lighthouse position based on the data in the "lighthouse_flash_data.txt" file.
 ## Usage
 First clone the repository from git. Cloning the repository includes cloning the data stored in the "lighthouse_flash_data.txt" file.
 
@@ -20,17 +19,6 @@ $ python main.py lighthouse_flash_data.txt
 Detailed documentation is available by running the Doxyfile using doxygen in the docs file in the root directory.
 This can be run by navigating in the docs file and running doxygen with:
 $doxygen
-
-## Auto-generation tool citations
-ChatGPT version 4.0 was used for:
-- Setting the labels on the sides of the corner plots from sampling from both the two-dimensional and three-dimensional posterior
-    -  The following prompt was used alongside the code for the corner and histogram plot: "How to set the labels on the edges of the corner plot"
-- Removing the tick marks on the histograms added to the corner plot for sampling
-    - The following prompts were used alongside the code for the corner and histogram plot: "How to hide x-axis labels and ticks for all but the bottom row" and "How to hide y-axis labels and ticks for all but the first column"
-- Initially, my docker container did not flush to the terminal in real time. I debugged this with ChatGPT and modified my docker code, accordingly.
-    - I used the following prompts, alongside my dockerfile script: "Why isn't the output of my dockerfile flushing in real time on my Mac?" "What can I change such that my dockerfile flushes the output - I know it has something to do with conda".
-
-GitHub Copilot was used to help write documentation for Doxygen and comments within the code.
 
 ## License
 Released 2024 by Cailley Factor.
